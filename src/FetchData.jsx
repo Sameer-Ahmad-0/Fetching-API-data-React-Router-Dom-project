@@ -9,7 +9,8 @@ const [record, setRecord] =useState([])// filtered drinks
 useEffect(()=>{
 fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
 .then(Response=>Response.json())
-.then(data=>setDrinks(data.drinks)
+.then(data=>{setDrinks(data.drinks)
+setRecord(data?.drinks)}
 )
 .catch(err=>console.log(err))
 },[])
@@ -21,19 +22,17 @@ const Filter=(event)=>{
     return(
        <>
        <div className="mt-5 flex justify-center align-center bg-slate-800">
- <div className='search'>
+     <div className='search'>
       <input type='text'  className="form-conrol" onChange={Filter} placeholder="search here"/>
       <i className="search icon"></i>
     </div>
     </div>
 
         <div className="flex justify-around gap-3 mt-16 flex-wrap">
-           
-           {record?.map((drink)=>(
-            <Drink image={drink.strDrinkThumb} key={drink.idDrink} name={drink.strDrink}  />
-        
+             {record?.map((drink)=>(
+             <Drink image={drink.strDrinkThumb} key={drink.idDrink} name={drink.strDrink}  />
            ))} 
-        
+          
         </div>
         </>
     )
